@@ -92,6 +92,21 @@ Open the printed Vite URL. The app generates a device wallet, you fund it with a
 
 > The website is just one client. The program is the network. You can write your own client against the same program ID and it's just as "real" as this one.
 
+## Post without the website
+
+You register a username **once** on the site (the only authority-gated step), save your key, and from then on you write straight to the program from your own machine — no site, no signer, no middleman. There's a tiny CLI for exactly this:
+
+```bash
+echo 'YOUR_BASE58_PRIVATE_KEY' > elno-key.txt   # the key the site gave you
+export ELNO_RPC='https://your-own-rpc'
+
+node cli/elno.mjs post "first post, signed by my own key, sent by me"
+node cli/elno.mjs reply <parentTxSig> "good point"
+node cli/elno.mjs follow <wallet>
+```
+
+`elnopost`, `elnoreply`, `elnoquote`, `elnoedit`, `elnodelete`, `elnofollow`, `elnounfollow`, `elnoprofile` are all permissionless — they need nobody's signature but yours. Full guide: **[docs/SELF-HOST](docs/SELF-HOST.md)**.
+
 ---
 
 ## Architecture
@@ -148,6 +163,7 @@ Edit and delete are events, not erasures — the indexer reconstructs current st
 ## Docs
 
 - [docs/MANIFESTO](docs/MANIFESTO.md) — why this exists
+- [docs/SELF-HOST](docs/SELF-HOST.md) — run your own / post anonymously straight to the chain
 - [docs/ARCHITECTURE](docs/ARCHITECTURE.md) — how the three layers fit together
 - [docs/PROGRAM](docs/PROGRAM.md) — instructions, accounts, PDAs, events
 - [docs/ROADMAP](docs/ROADMAP.md) — what's done and what's planned

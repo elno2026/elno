@@ -9,3 +9,7 @@ programs/*/target/
 .env
 .env.*
 !.env.example
+
+# CLI wallet key — ASLA commit'leme
+elno-key.txt
+*.key
