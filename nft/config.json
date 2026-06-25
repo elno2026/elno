@@ -1,0 +1,20 @@
+{
+  "_comment": "Sugar / Metaplex Core Candy Machine config TASLAGI — sugar config create ile kesinlestir",
+  "number": 1000,
+  "symbol": "ELNO",
+  "sellerFeeBasisPoints": 500,
+  "isMutable": true,
+  "isSequential": false,
+  "creators": [
+    { "address": "89EvL1MAom5V2nBp5ucvDVgeVm8hRUUJNe9sDgub5HXF", "share": 100 }
+  ],
+  "uploadConfig": { "method": "bundlr" },
+  "guards": {
+    "default": {
+      "solPayment": { "value": 0.25, "destination": "89EvL1MAom5V2nBp5ucvDVgeVm8hRUUJNe9sDgub5HXF" },
+      "mintLimit": { "id": 1, "limit": 5 },
+      "botTax": { "value": 0.01, "lastInstruction": true },
+      "startDate": { "date": "2026-07-01T00:00:00Z" }
+    }
+  }
+}

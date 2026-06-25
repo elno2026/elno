@@ -1,0 +1,14 @@
+{
+  "name": "Elno Founder #1",
+  "symbol": "ELNO",
+  "description": "Elno Founder — OG membership. Verified hexagon badge, early access, and a permanent place in the on-chain social network where you own your posts.",
+  "image": "0.png",
+  "attributes": [
+    { "trait_type": "Tier", "value": "Founder" },
+    { "trait_type": "Edition", "value": "1 / 1000" }
+  ],
+  "properties": {
+    "files": [{ "uri": "0.png", "type": "image/png" }],
+    "category": "image"
+  }
+}

@@ -1,0 +1,11 @@
+.keys/
+.cert/
+node_modules/
+dist/
+.media/
+programs/*/target/
+
+# Secrets — ASLA commit'leme (canli Helius key + authority keypair yolu icerir)
+.env
+.env.*
+!.env.example

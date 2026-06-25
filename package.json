@@ -1,0 +1,37 @@
+{
+  "name": "onchain-social-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "signer": "node server/mainnet-signer.mjs",
+    "peer": "npm --prefix peer start",
+    "peer:check": "npm --prefix peer run check && node scripts/peer_crypto_smoke.mjs",
+    "peer:create": "npm --prefix peer start -- create",
+    "peer:start": "npm --prefix peer start -- join",
+    "mainnet:check": "node scripts/check_mainnet_registry.mjs",
+    "mainnet:deploy": "node scripts/guard_mainnet_deploy.mjs && solana program deploy programs/osocial_registry/target/deploy/osocial_registry.so --program-id target/deploy/osocial_registry-keypair.json --upgrade-authority \"$OSOCIAL_UPGRADE_AUTHORITY_KEYPAIR\" --fee-payer ~/.config/solana/id.json --use-rpc -u ${MAINNET_RPC_URL:-https://api.mainnet-beta.solana.com}",
+    "mainnet:init": "node scripts/initialize_registry_config.mjs",
+    "mainnet:set-fee": "node scripts/set_registry_fee.mjs",
+    "auth:check": "node scripts/auth_safety_check.mjs",
+    "program:check": "cd programs/osocial_registry && cargo check",
+    "program:build": "anchor build",
+    "bench": "node scripts/bench_brotli.mjs",
+    "devnet": "node scripts/devnet_burner.mjs",
+    "mainnet:memo": "node scripts/mainnet_memo_brotli.mjs"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "brotli-wasm": "^3.0.1",
+    "buffer": "^6.0.3",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12"
+  }
+}
