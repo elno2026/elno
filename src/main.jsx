@@ -2223,9 +2223,9 @@ function Composer({ brotli, onPublish, currentUser, setCurrentPacket, onUserUpda
           <FlowGraphic steps={['wallet', 'tx', 'rpc']} />
         </div>
         <div>
-          <span>Kalan post hakkın</span>
-          <strong>{remainingPosts != null ? `~${remainingPosts.toLocaleString('tr-TR')} post` : '—'}</strong>
-          <RingMeter value={76} label="≈5k lamport" detail="post başına" tone="soft" />
+          <span>Posts you can afford</span>
+          <strong>{remainingPosts != null ? `~${remainingPosts.toLocaleString('en-US')} posts` : '—'}</strong>
+          <RingMeter value={76} label="≈5k lamports" detail="per post" tone="soft" />
         </div>
       </div>
       <div className="composer-head">

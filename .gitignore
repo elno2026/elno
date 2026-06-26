@@ -5,11 +5,15 @@ dist/
 .media/
 programs/*/target/
 
-# Secrets — ASLA commit'leme (canli Helius key + authority keypair yolu icerir)
+# Secrets — never commit
 .env
 .env.*
 !.env.example
 
-# CLI wallet key — ASLA commit'leme
+# CLI wallet key — never commit
 elno-key.txt
 *.key
+
+# OS / runtime junk
+.DS_Store
+*.pid
