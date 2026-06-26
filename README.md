@@ -127,7 +127,7 @@ Deeper detail in [docs/ARCHITECTURE](docs/ARCHITECTURE.md) and [docs/PROGRAM](do
 
 ## The program
 
-Live on Solana **mainnet**, Anchor / Rust, upgradeable, IDL published on-chain (explorers decode the instruction names for you).
+Live on Solana **mainnet**, Anchor / Rust, upgradeable, IDL published on-chain (explorers decode the instruction names for you) and committed to this repo at [`idl/elno.json`](idl/elno.json) so you can build a client in minutes.
 
 ```
 Program ID:  EzkXptxPSfDUUsbHwfSkF7Buvca1RVPGohCPAVFeUHcX

@@ -12,10 +12,31 @@ I wrote this so you don't have to trust me. Decode the IDL from any explorer and
 | **Framework** | Anchor 0.31.1 (Rust) |
 | **Cluster** | Solana mainnet-beta |
 | **Upgradeable** | Yes — deployed via the BPF upgradeable loader |
-| **IDL** | Published on-chain, so explorers decode instruction and account names automatically |
+| **IDL** | Published on-chain (explorers decode names automatically) **and** committed to this repo at [`idl/elno.json`](../idl/elno.json) |
 | **Internal crate name** | `osocial_registry` (the `elno` instruction prefix is the brand; the crate kept its original name) |
 | **Platform authority** | `89EvL1MAom5V2nBp5ucvDVgeVm8hRUUJNe9sDgub5HXF` — co-signs username registration and admin only |
 | **Treasury** | `89EvL1MAom5V2nBp5ucvDVgeVm8hRUUJNe9sDgub5HXF` — receives the registration fee (currently `0`) |
+
+### Build a client in one minute
+
+The machine-readable interface is right here in the repo — [`idl/elno.json`](../idl/elno.json) — so you don't have to hand-roll anything. With Anchor:
+
+```js
+import { Program, AnchorProvider } from '@coral-xyz/anchor'
+import idl from './idl/elno.json' assert { type: 'json' }
+
+const program = new Program(idl, new AnchorProvider(connection, wallet, {}))
+// derive your profile PDA and post:
+const [profile] = PublicKey.findProgramAddressSync(
+  [Buffer.from('profile'), wallet.publicKey.toBuffer()],
+  program.programId,
+)
+await program.methods.elnopost('osocial:v0:json:{"v":0,"type":"post","t":"gm","m":[]}')
+  .accounts({ user: wallet.publicKey, profile })
+  .rpc()
+```
+
+Prefer no framework? `cli/elno.mjs` does the same thing with raw `@solana/web3.js` and hand-built discriminators — read it, it's ~150 lines.
 
 A note on "upgradeable": the program can be upgraded by its upgrade authority. That is a deliberate, honest trade-off for a product this young — bugs get fixed, features land. It does not give anyone the power to post as you, edit you, or delete you. The security boundary is your private key, not the program's immutability. Freezing the upgrade authority is on the roadmap once the surface stabilizes.
 

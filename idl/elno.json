@@ -1,0 +1,2210 @@
+{
+  "address": "EzkXptxPSfDUUsbHwfSkF7Buvca1RVPGohCPAVFeUHcX",
+  "metadata": {
+    "name": "osocial_registry",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Osocial wallet registration program"
+  },
+  "instructions": [
+    {
+      "name": "create_post",
+      "discriminator": [
+        123,
+        92,
+        184,
+        29,
+        231,
+        24,
+        15,
+        202
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "post",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  115,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "profile.post_count",
+                "account": "Profile"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "create_post_packet",
+      "discriminator": [
+        39,
+        101,
+        35,
+        83,
+        75,
+        108,
+        28,
+        45
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnodelete",
+      "discriminator": [
+        114,
+        208,
+        88,
+        100,
+        32,
+        75,
+        175,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "target",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnoedit",
+      "discriminator": [
+        164,
+        110,
+        71,
+        20,
+        182,
+        32,
+        99,
+        110
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        },
+        {
+          "name": "edit_of",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnofollow",
+      "discriminator": [
+        172,
+        242,
+        156,
+        99,
+        4,
+        193,
+        173,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "follow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  111,
+                  108,
+                  108,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "arg",
+                "path": "following"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "following",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "elnopfp",
+      "discriminator": [
+        61,
+        207,
+        252,
+        254,
+        177,
+        154,
+        81,
+        84
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "nft_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "owner_wallet",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "elnopost",
+      "discriminator": [
+        129,
+        234,
+        26,
+        85,
+        245,
+        186,
+        178,
+        33
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnoprofile",
+      "discriminator": [
+        222,
+        177,
+        164,
+        19,
+        195,
+        3,
+        227,
+        97
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "display_name",
+          "type": "string"
+        },
+        {
+          "name": "bio",
+          "type": "string"
+        },
+        {
+          "name": "avatar",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnoquote",
+      "discriminator": [
+        171,
+        176,
+        76,
+        128,
+        183,
+        153,
+        70,
+        152
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        },
+        {
+          "name": "quote_of",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnoreply",
+      "discriminator": [
+        218,
+        94,
+        132,
+        162,
+        144,
+        226,
+        229,
+        14
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "packet",
+          "type": "string"
+        },
+        {
+          "name": "reply_to",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "elnounfollow",
+      "discriminator": [
+        128,
+        132,
+        172,
+        32,
+        63,
+        21,
+        173,
+        104
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "follow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  111,
+                  108,
+                  108,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "arg",
+                "path": "following"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "following",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "initialize_config",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "registration_fee_lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "register_profile",
+      "discriminator": [
+        218,
+        120,
+        4,
+        210,
+        2,
+        210,
+        149,
+        255
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "handle_claim",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  97,
+                  110,
+                  100,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "handle"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "handle",
+          "type": "string"
+        },
+        {
+          "name": "display_name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "set_authority",
+      "discriminator": [
+        133,
+        250,
+        37,
+        21,
+        110,
+        163,
+        26,
+        121
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_authority",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_profile_status",
+      "discriminator": [
+        106,
+        67,
+        185,
+        136,
+        170,
+        127,
+        89,
+        106
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "relations": [
+            "profile"
+          ]
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_registration_fee",
+      "discriminator": [
+        156,
+        222,
+        72,
+        107,
+        152,
+        183,
+        168,
+        199
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "registration_fee_lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_treasury",
+      "discriminator": [
+        57,
+        97,
+        196,
+        95,
+        195,
+        206,
+        106,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_treasury",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "transfer_handle",
+      "discriminator": [
+        205,
+        82,
+        18,
+        134,
+        165,
+        126,
+        5,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "handle_claim",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  97,
+                  110,
+                  100,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "handle_claim.handle",
+                "account": "HandleClaim"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "update_profile",
+      "discriminator": [
+        98,
+        67,
+        99,
+        206,
+        86,
+        115,
+        175,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "profile"
+          ]
+        },
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "display_name",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Follow",
+      "discriminator": [
+        222,
+        247,
+        253,
+        60,
+        70,
+        4,
+        164,
+        51
+      ]
+    },
+    {
+      "name": "HandleClaim",
+      "discriminator": [
+        148,
+        215,
+        248,
+        53,
+        11,
+        234,
+        115,
+        190
+      ]
+    },
+    {
+      "name": "Post",
+      "discriminator": [
+        8,
+        147,
+        90,
+        186,
+        185,
+        56,
+        192,
+        150
+      ]
+    },
+    {
+      "name": "Profile",
+      "discriminator": [
+        184,
+        101,
+        165,
+        188,
+        95,
+        63,
+        127,
+        188
+      ]
+    },
+    {
+      "name": "RegistryConfig",
+      "discriminator": [
+        23,
+        118,
+        10,
+        246,
+        173,
+        231,
+        243,
+        156
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AuthorityUpdated",
+      "discriminator": [
+        133,
+        207,
+        24,
+        122,
+        14,
+        234,
+        91,
+        34
+      ]
+    },
+    {
+      "name": "ConfigInitialized",
+      "discriminator": [
+        181,
+        49,
+        200,
+        156,
+        19,
+        167,
+        178,
+        91
+      ]
+    },
+    {
+      "name": "DeleteCreated",
+      "discriminator": [
+        238,
+        128,
+        180,
+        15,
+        110,
+        194,
+        28,
+        250
+      ]
+    },
+    {
+      "name": "EditCreated",
+      "discriminator": [
+        8,
+        152,
+        113,
+        199,
+        171,
+        194,
+        211,
+        136
+      ]
+    },
+    {
+      "name": "FollowCreated",
+      "discriminator": [
+        159,
+        73,
+        47,
+        101,
+        44,
+        48,
+        16,
+        35
+      ]
+    },
+    {
+      "name": "FollowRemoved",
+      "discriminator": [
+        12,
+        132,
+        240,
+        174,
+        87,
+        6,
+        76,
+        221
+      ]
+    },
+    {
+      "name": "HandleTransferred",
+      "discriminator": [
+        60,
+        54,
+        173,
+        179,
+        246,
+        184,
+        172,
+        39
+      ]
+    },
+    {
+      "name": "PfpSet",
+      "discriminator": [
+        103,
+        118,
+        196,
+        137,
+        129,
+        57,
+        90,
+        251
+      ]
+    },
+    {
+      "name": "PostCreated",
+      "discriminator": [
+        209,
+        178,
+        232,
+        24,
+        158,
+        92,
+        77,
+        227
+      ]
+    },
+    {
+      "name": "PostPacketCreated",
+      "discriminator": [
+        235,
+        71,
+        22,
+        67,
+        253,
+        35,
+        1,
+        70
+      ]
+    },
+    {
+      "name": "ProfileMetaUpdated",
+      "discriminator": [
+        58,
+        234,
+        49,
+        89,
+        212,
+        233,
+        158,
+        173
+      ]
+    },
+    {
+      "name": "ProfileRegistered",
+      "discriminator": [
+        250,
+        192,
+        146,
+        180,
+        73,
+        11,
+        17,
+        147
+      ]
+    },
+    {
+      "name": "ProfileStatusUpdated",
+      "discriminator": [
+        70,
+        251,
+        53,
+        173,
+        197,
+        20,
+        142,
+        49
+      ]
+    },
+    {
+      "name": "ProfileUpdated",
+      "discriminator": [
+        186,
+        248,
+        62,
+        98,
+        112,
+        98,
+        161,
+        252
+      ]
+    },
+    {
+      "name": "QuoteCreated",
+      "discriminator": [
+        141,
+        242,
+        172,
+        76,
+        3,
+        240,
+        228,
+        118
+      ]
+    },
+    {
+      "name": "RegistrationFeeUpdated",
+      "discriminator": [
+        166,
+        161,
+        107,
+        244,
+        151,
+        1,
+        35,
+        38
+      ]
+    },
+    {
+      "name": "ReplyCreated",
+      "discriminator": [
+        135,
+        217,
+        169,
+        159,
+        237,
+        183,
+        206,
+        250
+      ]
+    },
+    {
+      "name": "TreasuryUpdated",
+      "discriminator": [
+        80,
+        239,
+        54,
+        168,
+        43,
+        38,
+        85,
+        145
+      ]
+    },
+    {
+      "name": "UsernameClaimed",
+      "discriminator": [
+        44,
+        186,
+        0,
+        104,
+        43,
+        52,
+        89,
+        31
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Only the registry authority can perform this action."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidTreasury",
+      "msg": "The supplied treasury account does not match registry config."
+    },
+    {
+      "code": 6002,
+      "name": "InvalidAuthority",
+      "msg": "Authority cannot be the default pubkey."
+    },
+    {
+      "code": 6003,
+      "name": "EmptyHandle",
+      "msg": "Handle cannot be empty."
+    },
+    {
+      "code": 6004,
+      "name": "HandleTooShort",
+      "msg": "Handle is too short."
+    },
+    {
+      "code": 6005,
+      "name": "InvalidHandle",
+      "msg": "Handle must be 3-30 lowercase ascii letters, digits, underscores, or dots, and separators cannot start, end, or repeat."
+    },
+    {
+      "code": 6006,
+      "name": "HandleTooLong",
+      "msg": "Handle is too long."
+    },
+    {
+      "code": 6007,
+      "name": "DisplayNameTooLong",
+      "msg": "Display name is too long."
+    },
+    {
+      "code": 6008,
+      "name": "EmptyPost",
+      "msg": "Post packet cannot be empty."
+    },
+    {
+      "code": 6009,
+      "name": "PostPacketTooLong",
+      "msg": "Post packet is too long."
+    },
+    {
+      "code": 6010,
+      "name": "RegistrationFeeTooHigh",
+      "msg": "Registration fee is too high."
+    },
+    {
+      "code": 6011,
+      "name": "PostCounterOverflow",
+      "msg": "Post counter overflow."
+    },
+    {
+      "code": 6012,
+      "name": "ProfileDisabled",
+      "msg": "Profile is disabled by the registry authority."
+    },
+    {
+      "code": 6013,
+      "name": "EmptyRef",
+      "msg": "Reply/quote reference cannot be empty."
+    },
+    {
+      "code": 6014,
+      "name": "RefTooLong",
+      "msg": "Reply/quote reference is too long."
+    },
+    {
+      "code": 6015,
+      "name": "CannotFollowSelf",
+      "msg": "A wallet cannot follow itself."
+    },
+    {
+      "code": 6016,
+      "name": "BioTooLong",
+      "msg": "Bio is too long."
+    },
+    {
+      "code": 6017,
+      "name": "AvatarTooLong",
+      "msg": "Avatar reference is too long."
+    },
+    {
+      "code": 6018,
+      "name": "InvalidNewOwner",
+      "msg": "New owner is invalid (default key or same as current owner)."
+    }
+  ],
+  "types": [
+    {
+      "name": "AuthorityUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "previous_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfigInitialized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "registration_fee_lamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DeleteCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "target",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EditCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "packet",
+            "type": "string"
+          },
+          {
+            "name": "edit_of",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Follow",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "follower",
+            "type": "pubkey"
+          },
+          {
+            "name": "following",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FollowCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "follower",
+            "type": "pubkey"
+          },
+          {
+            "name": "following",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FollowRemoved",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "follower",
+            "type": "pubkey"
+          },
+          {
+            "name": "following",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HandleClaim",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "handle",
+            "type": "string"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HandleTransferred",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "handle",
+            "type": "string"
+          },
+          {
+            "name": "handle_claim",
+            "type": "pubkey"
+          },
+          {
+            "name": "previous_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PfpSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Post",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "sequence",
+            "type": "u64"
+          },
+          {
+            "name": "packet",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "post",
+            "type": "pubkey"
+          },
+          {
+            "name": "sequence",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostPacketCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "sequence",
+            "type": "u64"
+          },
+          {
+            "name": "packet",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Profile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "handle",
+            "type": "string"
+          },
+          {
+            "name": "display_name",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "paid_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "post_count",
+            "type": "u64"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProfileMetaUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "display_name",
+            "type": "string"
+          },
+          {
+            "name": "bio",
+            "type": "string"
+          },
+          {
+            "name": "avatar",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProfileRegistered",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "handle",
+            "type": "string"
+          },
+          {
+            "name": "paid_lamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProfileStatusUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProfileUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "handle",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "QuoteCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "sequence",
+            "type": "u64"
+          },
+          {
+            "name": "packet",
+            "type": "string"
+          },
+          {
+            "name": "quote_of",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RegistrationFeeUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "registration_fee_lamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RegistryConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "registration_fee_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReplyCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "sequence",
+            "type": "u64"
+          },
+          {
+            "name": "packet",
+            "type": "string"
+          },
+          {
+            "name": "reply_to",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TreasuryUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "previous_treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_treasury",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UsernameClaimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "event_version",
+            "type": "u8"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "profile",
+            "type": "pubkey"
+          },
+          {
+            "name": "username_index",
+            "type": "pubkey"
+          },
+          {
+            "name": "handle",
+            "type": "string"
+          },
+          {
+            "name": "display_name",
+            "type": "string"
+          },
+          {
+            "name": "paid_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

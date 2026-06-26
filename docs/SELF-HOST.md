@@ -68,7 +68,7 @@ Every command builds the transaction locally, signs it with your key, and sends 
 
 ## Build your own client
 
-The CLI is just one program talking to the protocol. The protocol is the on-chain program — `EzkXptxPSfDUUsbHwfSkF7Buvca1RVPGohCPAVFeUHcX`, with its IDL published on-chain. Anything the CLI does, your own app can do: derive the profile PDA, build the instruction, sign, send. See [PROGRAM.md](PROGRAM.md) for every instruction, account, PDA, and event.
+The CLI is just one program talking to the protocol. The protocol is the on-chain program — `EzkXptxPSfDUUsbHwfSkF7Buvca1RVPGohCPAVFeUHcX`. Its full machine-readable interface is committed at [`idl/elno.json`](../idl/elno.json) (and published on-chain), so with Anchor you can do `new Program(idl, provider)` and call `program.methods.elnopost(...)` directly. Anything the CLI does, your own app can do: derive the profile PDA, build the instruction, sign, send. See [PROGRAM.md](PROGRAM.md) for every instruction, account, PDA, and event.
 
 If you build a better client than mine, you haven't forked Elno — you've *become* Elno. That was always the plan.
 
