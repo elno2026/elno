@@ -1,4 +1,4 @@
-RECRAFT / IDEOGRAM PROMPT — Elno Founder NFT (logo'yla ayni dil):
+RECRAFT / IDEOGRAM PROMPT — Elno Founder NFT (same visual language as the logo):
 
 Premium "Founder" membership NFT badge for Elno, a decentralized on-chain social
 network on Solana. A bold minimal emblem: the Elno "e" monogram (lowercase e with a
@@ -7,5 +7,5 @@ glass frame. Deep navy background with a purple-to-pink gradient glow (#A36BFF t
 #E0479E). The word "FOUNDER" engraved subtly along the lower edge. Luxurious,
 futuristic, collectible badge, vector, centered, dark, premium. Not cartoonish.
 
-Generative varyant (opsiyonel, koleksiyon icin): cerceve/glow rengini edition'a gore
-degistir (mor, pembe, altin, cyan, holografik) -> nadirlik katmanlari.
+Generative variant (optional, for the collection): change the frame/glow color per
+edition (purple, pink, gold, cyan, holographic) -> rarity tiers.

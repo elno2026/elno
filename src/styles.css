@@ -3795,7 +3795,7 @@ textarea:focus-visible {
 
 /* ============================================================
    PRIMAL-STYLE DARK THEME  — appended override (2026-06-25)
-   Tek blok; silmek/geri almak icin bu bolumu kaldir.
+   Single block; remove this section to delete/revert.
    ============================================================ */
 :root {
   --bg: #0b0b0f;
@@ -3806,9 +3806,9 @@ textarea:focus-visible {
   --panel-2: #1d1d25;
   --dark: #16161c;
   --dark-2: #1d1d25;
-  --green: #a36bff;              /* accent -> mor */
+  --green: #a36bff;              /* accent -> purple */
   --green-soft: rgba(163, 107, 255, 0.14);
-  --cyan: #e0479e;              /* ikincil accent -> pembe */
+  --cyan: #e0479e;              /* secondary accent -> pink */
   --cyan-soft: rgba(224, 71, 158, 0.14);
   --red: #ff5b6e;
   --amber: #ffb648;
@@ -3818,7 +3818,7 @@ textarea:focus-visible {
   --accent-grad: linear-gradient(135deg, #a36bff, #e0479e);
   --shadow: 0 18px 46px rgba(0, 0, 0, 0.5);
   --shadow-strong: 0 26px 80px rgba(0, 0, 0, 0.62);
-  /* semantik token sistemi (3. :root) override'lari */
+  /* semantic token system (3rd :root) overrides */
   --surface-page: #0b0b0f;
   --surface-card: #16161c;
   --surface-card-solid: #1d1d25;
@@ -3841,10 +3841,10 @@ textarea:focus-visible {
 
 body {
   color: var(--ink);
-  background: var(--bg);          /* duz koyu, grid yok */
+  background: var(--bg);          /* flat dark, no grid */
 }
 
-/* --- kartlar / paneller --- */
+/* --- cards / panels --- */
 .composer-card,
 .activation-card,
 .post-card,
@@ -3868,7 +3868,7 @@ body {
   border-color: #32323d;
 }
 
-/* --- sidebar: yesil yerine mor gradyan --- */
+/* --- sidebar: purple gradient instead of green --- */
 .sidebar {
   color: var(--ink);
   border: 1px solid var(--line);
@@ -3877,7 +3877,7 @@ body {
     #121217;
 }
 
-/* --- accent gradyanli paneller --- */
+/* --- accent gradient panels --- */
 .activation-card {
   background:
     linear-gradient(135deg, rgba(163, 107, 255, 0.16), transparent 42%),
@@ -3898,7 +3898,7 @@ body {
 .proof-panel span { color: rgba(244, 244, 247, 0.6); }
 .proof-panel code { color: rgba(244, 244, 247, 0.72); }
 
-/* --- beyaz hardcoded yuzeyler -> koyu --- */
+/* --- white hardcoded surfaces -> dark --- */
 .auth-switch,
 .auth-explainer div,
 .saved-accounts button,
@@ -3937,7 +3937,7 @@ select {
 textarea::placeholder,
 input::placeholder { color: var(--muted); }
 
-/* --- koyu hardcoded metinler -> acik --- */
+/* --- dark hardcoded text -> light --- */
 .auth-explainer strong,
 .saved-accounts button > span,
 .saved-accounts em,
@@ -3954,13 +3954,13 @@ input::placeholder { color: var(--muted); }
   color: var(--ink);
 }
 
-/* --- accent renkli metin/linkler --- */
+/* --- accent-colored text/links --- */
 .media-proof-actions .icon-button,
 .receipt-actions a,
 .registry-proof-card a,
 .proof-panel a { color: var(--accent); }
 
-/* --- birincil/aktif butonlar: mor zemin + beyaz yazi --- */
+/* --- primary/active buttons: purple background + white text --- */
 .auth-switch button.active,
 .auth-submit,
 .wallet-mode button.active,
@@ -3976,7 +3976,7 @@ input::placeholder { color: var(--muted); }
   color: var(--ink);
 }
 
-/* --- avatar: mor-pembe gradyan + beyaz monogram --- */
+/* --- avatar: purple-pink gradient + white monogram --- */
 .avatar,
 .profile-avatar,
 .composer-head .avatar,
@@ -3985,13 +3985,13 @@ input::placeholder { color: var(--muted); }
   background: var(--accent-grad);
 }
 
-/* --- post aksiyon ikonlari --- */
+/* --- post action icons --- */
 .post-actions button { color: var(--muted); }
 .post-actions button:hover { color: var(--ink); }
 .post-actions button.active { color: var(--accent); }
 .post-actions button.like { color: var(--red); }
 
-/* --- uyari/bekleme pill'leri: koyu amber --- */
+/* --- warning/pending pills: dark amber --- */
 .size-pill.warn,
 .post-proof-strip.is-sample span:first-child,
 .status-pill.pending {
@@ -4000,12 +4000,12 @@ input::placeholder { color: var(--muted); }
   border-color: rgba(255, 182, 72, 0.3);
 }
 
-/* --- feed: kartlar ince cizgiyle ayrilsin (Primal hissi) --- */
+/* --- feed: separate cards with a thin line (Primal feel) --- */
 .feed-list { gap: 0; }
 .feed-list .post-card { border-radius: 0; border-left: 0; border-right: 0; border-top: 0; }
 .feed-list .post-card:first-child { border-radius: 12px 12px 0 0; }
 
-/* --- alinti (quote) gomulu kart --- */
+/* --- embedded quote card --- */
 .quote-embed {
   margin: 8px 0 2px;
   padding: 12px 14px;
@@ -4021,7 +4021,7 @@ input::placeholder { color: var(--muted); }
 
 /* ============================================================
    IOFRM-STYLE WALLET LOGIN  — appended (2026-06-25)
-   Iofrm login36 referansli: split, illustrasyon, Rubik/Sora, cuzdan girisli.
+   Based on Iofrm login36: split, illustration, Rubik/Sora, wallet login.
    ============================================================ */
 :root,
 body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
@@ -4041,7 +4041,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .auth-panel { order: 1; }
 .auth-screen .auth-hero { order: 2; }
 
-/* ---------- SOL: form paneli ---------- */
+/* ---------- LEFT: form panel ---------- */
 .auth-screen .auth-panel {
   display: flex;
   flex-direction: column;
@@ -4070,7 +4070,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
   line-height: 1.12; letter-spacing: -0.01em; color: #f6f4ff; margin: 0;
 }
 
-/* 1-2-3 adim seridi */
+/* 1-2-3 step strip */
 .auth-screen .auth-explainer.auth-path {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 6px 0 2px;
 }
@@ -4097,7 +4097,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .auth-switch button.active { background: var(--accent-grad); color: #ffffff; box-shadow: 0 8px 22px rgba(163, 107, 255, 0.32); }
 
-/* form + inputlar (koyu cam dolgu) */
+/* form + inputs (dark glass fill) */
 .auth-screen .auth-form { display: grid; gap: 16px; }
 .auth-screen .handle-field { display: grid; gap: 7px; }
 .auth-screen .handle-field > span { font-size: 13px; font-weight: 600; color: #d4c8f5; }
@@ -4119,7 +4119,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .auth-form input:focus { background: rgba(0, 0, 0, 0.34); border-color: #a36bff; outline: none; box-shadow: 0 0 0 3px rgba(163, 107, 255, 0.18); }
 .auth-screen input::placeholder { color: rgba(214, 200, 255, 0.4); }
 
-/* durum satiri */
+/* status row */
 .auth-screen .auth-state {
   display: flex; align-items: flex-start; gap: 9px; padding: 12px 14px; border-radius: 12px;
   background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(163, 107, 255, 0.16); color: rgba(221, 211, 255, 0.78); font-size: 13px; line-height: 1.45;
@@ -4127,7 +4127,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .auth-state svg { width: 17px; height: 17px; color: #c9a9ff; flex: none; margin-top: 1px; }
 .auth-screen .auth-state.active { background: rgba(163,107,255,0.12); border-color: rgba(163,107,255,0.4); color: #e9defc; }
 
-/* butonlar: dolu + outline ikilisi */
+/* buttons: filled + outline pair */
 .auth-screen .auth-submit {
   display: flex; align-items: center; justify-content: center; gap: 9px;
   min-height: 54px; border: 0; border-radius: 12px; cursor: pointer;
@@ -4143,7 +4143,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .auth-submit.secondary:hover:not(:disabled) { background: rgba(163, 107, 255, 0.12); border-color: #a36bff; transform: translateY(-1px); }
 
-/* kayitli hesaplar */
+/* saved accounts */
 .auth-screen .saved-accounts { display: grid; gap: 8px; }
 .auth-screen .saved-accounts > span { font-size: 12px; font-weight: 600; color: rgba(214, 200, 255, 0.6); text-transform: uppercase; letter-spacing: 0.08em; }
 .auth-screen .saved-accounts > div { display: grid; gap: 8px; }
@@ -4160,7 +4160,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .saved-accounts button small { color: rgba(214, 200, 255, 0.6); font-size: 12px; }
 .auth-screen .saved-accounts button em { margin-left: auto; font-style: normal; font-size: 12px; color: #c9a9ff; font-weight: 600; }
 
-/* ---------- SAG: illustrasyon paneli (koyu cam kart) ---------- */
+/* ---------- RIGHT: illustration panel (dark glass card) ---------- */
 .auth-screen .auth-hero {
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px;
   margin: 18px; border-radius: 28px;
@@ -4189,7 +4189,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .auth-copy p { color: rgba(226, 218, 248, 0.74); font-size: 15px; line-height: 1.55; margin: 0; }
 
-.auth-screen .auth-ledger-strip { display: none; }  /* yeni tasarimda trust-chips kullaniyoruz */
+.auth-screen .auth-ledger-strip { display: none; }  /* using trust-chips in the new design */
 .auth-screen .auth-illustration { width: 100%; max-width: 460px; }
 .auth-screen .auth-illustration svg { width: 100%; height: auto; display: block; }
 
@@ -4201,10 +4201,10 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .auth-trust-chips svg { width: 15px; height: 15px; color: #c9a9ff; }
 
-/* ---------- Activate / Fund ekrani (funding panel) ---------- */
+/* ---------- Activate / Fund screen (funding panel) ---------- */
 .auth-screen .funding-panel { display: grid; gap: 15px; }
 
-/* cuzdan karti — vurgulu, kopyalanacak adres */
+/* wallet card — highlighted, copyable address */
 .auth-screen .generated-wallet {
   display: grid; gap: 9px; padding: 18px;
   background: linear-gradient(150deg, rgba(163,107,255,0.16), rgba(224,71,158,0.1));
@@ -4218,7 +4218,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .generated-wallet > small { color: rgba(226,218,248,0.7); font-size: 12.5px; line-height: 1.5; }
 .auth-screen .wallet-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
 
-/* icon-button (Copy adres / Add recovery) — temiz pill */
+/* icon-button (Copy address / Add recovery) — clean pill */
 .auth-screen .icon-button {
   display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 15px;
   background: rgba(255,255,255,0.05); border: 1.5px solid rgba(163,107,255,0.28); border-radius: 11px; color: #d9ccff;
@@ -4234,7 +4234,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .recovery-linked-pill svg { width: 15px; height: 15px; color: #c9a9ff; }
 
-/* bakiye karti */
+/* balance card */
 .auth-screen .balance-card {
   display: grid; gap: 5px; padding: 16px 18px;
   background: rgba(0,0,0,0.3); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 16px;
@@ -4245,7 +4245,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .balance-card.ready { background: rgba(163,107,255,0.14); border-color: rgba(163,107,255,0.45); }
 .auth-screen .balance-card.ready > strong { color: #f0c9ff; }
 
-/* 1-2-3 adim — dikey liste (baslik + aciklama) */
+/* 1-2-3 step — vertical list (title + description) */
 .auth-screen .funding-steps { display: grid; grid-template-columns: 1fr; gap: 8px; }
 .auth-screen .funding-steps > div {
   display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; text-align: left; padding: 13px 14px;
@@ -4261,7 +4261,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .funding-steps > div.done { background: rgba(163,107,255,0.14); border-color: rgba(163,107,255,0.4); }
 .auth-screen .funding-steps > div.done strong { background: var(--accent-grad); color: #fff; }
 
-/* teknik kanit — sade, mute, katlanmis his */
+/* technical proof — plain, muted, folded feel */
 .auth-screen .contract-preview {
   display: grid; gap: 3px; padding: 14px 16px;
   background: rgba(0,0,0,0.26); border: 1px dashed rgba(163,107,255,0.22); border-radius: 14px;
@@ -4272,7 +4272,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 
 .auth-screen .funding-panel > p { color: rgba(214,200,255,0.62); font-size: 13px; line-height: 1.5; margin: 2px 0 0; }
 
-/* uyari: ayri cuzdan — sicak pembe (alarm kirmizi degil) */
+/* warning: separate wallet — warm pink (not alarm red) */
 .auth-screen .wallet-notice {
   display: flex; align-items: flex-start; gap: 10px; padding: 13px 15px;
   background: rgba(224, 71, 158, 0.1); border: 1.5px solid rgba(224, 71, 158, 0.3); border-radius: 14px;
@@ -4281,7 +4281,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 .auth-screen .wallet-notice svg { width: 18px; height: 18px; color: #e0479e; flex: none; margin-top: 1px; }
 .auth-screen .wallet-notice strong { color: #ffffff; }
 
-/* ---------- giris anahtarini sakla ekrani ---------- */
+/* ---------- save login key screen ---------- */
 .auth-screen .key-warning {
   display: flex; align-items: flex-start; gap: 11px; padding: 15px 16px;
   background: rgba(224, 71, 158, 0.1); border: 1.5px solid rgba(224, 71, 158, 0.32); border-radius: 16px;
@@ -4304,7 +4304,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 .auth-screen .key-saved-check input { width: 18px; height: 18px; accent-color: #a36bff; cursor: pointer; flex: none; }
 
-/* mobil: tek kolon, illustrasyon ustte */
+/* mobile: single column, illustration on top */
 @media (max-width: 920px) {
   .auth-screen { grid-template-columns: 1fr; }
   .auth-screen .auth-hero { order: 1; padding: 40px 24px; }
@@ -4313,7 +4313,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
 }
 
 /* ============================================================
-   ELNO LOGO MARK — "e" monogram app-icon (kullanicinin sectigi logo)
+   ELNO LOGO MARK — "e" monogram app-icon (logo chosen by the user)
    ============================================================ */
 .brand-mark {
   background: none !important;
@@ -4333,28 +4333,28 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
   display: block;
 }
 
-/* auth panelinde biraz daha buyuk */
+/* a bit larger in the auth panel */
 .auth-screen .auth-hero .brand-mark { width: 50px; height: 50px; }
 .auth-screen .auth-hero .brand-mark > .brand-logo { width: 50px; height: 50px; border-radius: 13px; }
 
 /* ============================================================================
-   ELNO · "PRISM" — SENTEZ PREMIUM WEB3 FEED TEMA (appended 2026-06-25)
-   Cryptor-hizali derin navy + radyal mor/pembe glow + parlayan kart kenarlari
-   X  visionOS-style frosted glass / cam yuzeyler.  Iki kazanan yonun birlesimi.
-   Dosya sonu => EN YUKSEK ONCELIK, mevcut (Aurora/Carbon) temayi ezer.
-   SADECE feed/app yuzeyleri. .auth-screen'e DOKUNULMAZ. Gercek class'lar.
+   ELNO · "PRISM" — SYNTHESIS PREMIUM WEB3 FEED THEME (appended 2026-06-25)
+   Cryptor-aligned deep navy + radial purple/pink glow + glowing card edges
+   X  visionOS-style frosted glass surfaces.  Fusion of the two winning directions.
+   End of file => HIGHEST PRIORITY, overrides the existing (Aurora/Carbon) theme.
+   ONLY feed/app surfaces. .auth-screen is NOT touched. Real classes.
    ============================================================================ */
 
-/* ---- marka token'lari: app yuzeylerinde scope'lu ---- */
+/* ---- brand tokens: scoped to app surfaces ---- */
 .app-shell {
   --accent: #a36bff;
   --accent-2: #e0479e;
-  --accent-3: #6f8bff;                        /* soguk aurora ucu */
+  --accent-3: #6f8bff;                        /* cold aurora tip */
   --accent-grad: linear-gradient(120deg, #a36bff 0%, #c25fc4 48%, #e0479e 100%);
   --px-glow: rgba(163, 107, 255, 0.45);
   --px-glow-2: rgba(224, 71, 158, 0.34);
 
-  /* derin navy yuzey paleti (Cryptor) */
+  /* deep navy surface palette (Cryptor) */
   --px-bg: #07060f;
   --px-ink: #f4f1fb;
   --px-muted: #9a93b8;
@@ -4362,7 +4362,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
   --px-line-soft: rgba(255, 255, 255, 0.055);
   --px-line-strong: rgba(163, 107, 255, 0.30);
 
-  /* cam dolgular (visionOS) */
+  /* glass fills (visionOS) */
   --px-glass: rgba(20, 18, 36, 0.55);
   --px-glass-2: rgba(28, 24, 48, 0.62);
   --px-blur: saturate(165%) blur(24px);
@@ -4380,7 +4380,7 @@ body { font-family: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI'
   --font-body: 'Rubik', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* ---- zemin: derin navy + cift radyal mor/pembe glow + ince noktali doku ---- */
+/* ---- background: deep navy + dual radial purple/pink glow + fine dotted texture ---- */
 body {
   background:
     radial-gradient(58vw 50vh at 16% -10%, rgba(163, 107, 255, 0.26), transparent 58%),
@@ -4391,7 +4391,7 @@ body {
   color: var(--px-ink);
   font-family: 'Rubik', ui-sans-serif, system-ui, sans-serif;
 }
-/* ince noktali parlama katmani — yuzeyin uzerinde, etkilesimi engellemez */
+/* fine dotted shimmer layer — above the surface, does not block interaction */
 .app-shell::before {
   content: '';
   position: fixed;
@@ -4404,7 +4404,7 @@ body {
   mix-blend-mode: screen;
 }
 
-/* ============================ ISKELET (floating shell) ============================ */
+/* ============================ SKELETON (floating shell) ============================ */
 .app-shell {
   position: relative;
   z-index: 1;
@@ -4418,7 +4418,7 @@ body {
   padding: 0;
 }
 
-/* ---- baslik tipografisi: Sora 800 govde Rubik ---- */
+/* ---- heading typography: Sora 800 body Rubik ---- */
 .topbar h1,
 .brand-block strong,
 .composer-topline strong,
@@ -4439,7 +4439,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* ============================ SOL NAV (cam rail) ============================ */
+/* ============================ LEFT NAV (glass rail) ============================ */
 .sidebar {
   position: sticky;
   top: 20px;
@@ -4459,7 +4459,7 @@ body {
   backdrop-filter: var(--px-blur);
   box-shadow: var(--px-elev-2), var(--px-inner);
 }
-/* sidebar tepe pembe sis */
+/* sidebar top pink haze */
 .sidebar::after {
   content: '';
   position: absolute;
@@ -4485,7 +4485,7 @@ body {
 }
 .brand-block strong { color: #ffffff; font-size: 19px; }
 
-/* logo mark: gradyan kutu + mor hale */
+/* logo mark: gradient box + purple halo */
 .brand-mark {
   display: grid;
   place-items: center;
@@ -4502,7 +4502,7 @@ body {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
-/* yan nav: cam pill, hover translate, aktif = gradyan dolgu + glow */
+/* side nav: glass pill, hover translate, active = gradient fill + glow */
 .side-nav { gap: 6px; }
 .side-nav button {
   min-height: 50px;
@@ -4547,7 +4547,7 @@ body {
   box-shadow: 0 8px 18px -6px rgba(224, 71, 158, 0.7);
 }
 
-/* app wallet karti: alta yapisik cam, ince mor tepe cizgisi */
+/* app wallet card: glass stuck to bottom, thin purple top line */
 .wallet-card {
   margin-top: auto;
   padding: 14px;
@@ -4569,7 +4569,7 @@ body {
 .wallet-card strong { color: #ffffff; }
 .wallet-card small { color: rgba(244, 241, 251, 0.55); line-height: 1.4; }
 
-/* ============================ UST BAR ============================ */
+/* ============================ TOP BAR ============================ */
 .topbar {
   position: sticky;
   top: 20px;
@@ -4597,7 +4597,7 @@ body {
 .topbar h1 { font-size: clamp(23px, 2.5vw, 31px); margin-top: 2px; }
 .topbar p { color: var(--px-muted); font-size: 13px; margin-top: 4px; }
 
-/* ust bar ikon butonlari: cam, hover = mor lift */
+/* top bar icon buttons: glass, hover = purple lift */
 .top-actions { gap: 10px; }
 .top-actions button:not(.session-pill) {
   color: rgba(244, 241, 251, 0.82);
@@ -4615,7 +4615,7 @@ body {
 }
 .top-actions button:disabled { opacity: 0.42; }
 
-/* mainnet rozeti: yesil yerine mor/pembe gradyan kenar */
+/* mainnet badge: purple/pink gradient border instead of green */
 .network-badge {
   color: var(--px-ink);
   border: 1px solid rgba(163, 107, 255, 0.34);
@@ -4650,7 +4650,7 @@ body {
 .feed-main { gap: 18px; }
 .feed-list { gap: 16px; }
 
-/* ============================ ORTAK CAM KART CHROME ============================ */
+/* ============================ SHARED GLASS CARD CHROME ============================ */
 .composer-card,
 .post-card,
 .rail-panel,
@@ -4694,7 +4694,7 @@ body {
   opacity: 0.95;
 }
 
-/* topline: 3 mini bilgi karti — KALABALIGI AZALT: sakin cam, hover ipucu */
+/* topline: 3 mini info cards — REDUCE CLUTTER: calm glass, hover hint */
 .composer-topline {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4722,7 +4722,7 @@ body {
   text-transform: uppercase;
 }
 .composer-topline strong { color: #ffffff; font-size: 15px; }
-/* topline icindeki teknik mini-gorseller: gurultu azalt */
+/* technical mini-visuals inside topline: reduce noise */
 .composer-topline .mini-bars { min-height: 24px; opacity: 0.8; }
 .composer-topline .flow-graphic { opacity: 0.85; }
 .composer-topline .ring-meter { opacity: 0.9; }
@@ -4752,7 +4752,7 @@ body {
 
 .composer-toolbar { margin-top: 14px; gap: 10px; }
 
-/* developer/packet toggle = ikincil cam buton */
+/* developer/packet toggle = secondary glass button */
 .developer-toggle {
   color: var(--px-muted);
   border: 1px solid var(--px-line);
@@ -4766,7 +4766,7 @@ body {
   background: rgba(163, 107, 255, 0.12);
 }
 
-/* yayin butonu: imza gradyan + glow */
+/* publish button: signature gradient + glow */
 .publish-button,
 .auth-submit:not(.secondary) {
   margin-left: auto;
@@ -4841,7 +4841,7 @@ body {
 .publish-receipt span, .publish-receipt dt { color: var(--px-muted); }
 .publish-receipt strong, .publish-receipt dd { color: #ffffff; }
 
-/* ============================ POST KARTI ============================ */
+/* ============================ POST CARD ============================ */
 .post-card {
   padding: 18px;
   border-radius: var(--px-r);
@@ -4871,7 +4871,7 @@ body {
 .post-header button:hover:not(:disabled) { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
 .post-body > p { color: #e8e3f4; font-size: 15.5px; line-height: 1.55; }
 
-/* gomulu alinti: ince mor sol vurgu */
+/* embedded quote: thin purple left accent */
 .quote-embed {
   margin-top: 10px;
   padding: 12px 14px;
@@ -4895,7 +4895,7 @@ body {
 .post-media figcaption { color: var(--px-muted); }
 .post-media figcaption svg { color: var(--accent); }
 
-/* on-chain kanit seridi: cam chip satiri, accent View tx */
+/* on-chain proof strip: glass chip row, accent View tx */
 .post-proof-strip {
   margin-top: 14px;
   gap: 8px;
@@ -4933,12 +4933,12 @@ body {
 }
 .post-proof-strip a:hover { color: #ffffff; text-decoration: underline; }
 
-/* proof details (acilir) */
+/* proof details (expandable) */
 .post-proof-details summary { color: var(--px-muted); }
 .post-proof-details code { color: #cfc8e6; }
 .post-proof-details a { color: var(--accent-2); }
 
-/* reply / quote satir kutulari */
+/* reply / quote row boxes */
 .reply-stack { border-left-color: rgba(163, 107, 255, 0.30); }
 .reply-stack strong { color: #ffffff; }
 .reply-stack span { color: #c8c1de; }
@@ -4962,7 +4962,7 @@ body {
   font-weight: 700;
 }
 
-/* aksiyon seridi: hayalet butonlar, hover mor */
+/* action strip: ghost buttons, hover purple */
 .post-actions { gap: 6px; margin-top: 14px; }
 .post-actions button {
   color: var(--px-muted);
@@ -4997,7 +4997,7 @@ body {
   font-weight: 800;
 }
 
-/* ============================ SAG RAIL (de-tech'd) ============================ */
+/* ============================ RIGHT RAIL (de-tech'd) ============================ */
 .right-rail {
   position: sticky;
   top: 124px;
@@ -5020,7 +5020,7 @@ body {
 .rail-panel small { color: var(--px-muted); }
 .rail-panel code { color: #cfc8e6; }
 
-/* hero rail panel ("Network graph / Protocol health") yumusatildi: trend/sosyal hissi */
+/* hero rail panel ("Network graph / Protocol health") softened: trend/social feel */
 .rail-panel.graph-panel {
   border-color: rgba(163, 107, 255, 0.16);
   background:
@@ -5038,7 +5038,7 @@ body {
 }
 .rail-graph-head strong { color: #ffffff; font-size: 16px; }
 
-/* pulse / trend satirlari: temiz liste */
+/* pulse / trend rows: clean list */
 .pulse-row { border-bottom: 1px solid var(--px-line-soft); }
 .pulse-row strong { color: #ffffff; }
 .pulse-row small { color: var(--px-muted); }
@@ -5084,8 +5084,8 @@ body {
   background: rgba(163, 107, 255, 0.14);
 }
 
-/* ============================ MINI GORSELLER (mor/pembe re-tint) ============================ */
-/* MiniBars: cocuklar <span> (DOM dogrulandi) */
+/* ============================ MINI VISUALS (purple/pink re-tint) ============================ */
+/* MiniBars: children are <span> (DOM verified) */
 .mini-bars span {
   background: linear-gradient(180deg, rgba(163, 107, 255, 0.95), rgba(163, 107, 255, 0.25));
 }
@@ -5096,7 +5096,7 @@ body {
   background: linear-gradient(180deg, rgba(163, 107, 255, 0.5), rgba(163, 107, 255, 0.10));
 }
 
-/* RingMeter: ring conic + ic disk */
+/* RingMeter: ring conic + inner disk */
 .ring-meter { color: var(--px-ink); }
 .ring-meter > div {
   background:
@@ -5113,7 +5113,7 @@ body {
 .ring-meter p { color: var(--px-ink); }
 .ring-meter small { color: var(--px-muted); }
 
-/* FlowGraphic: div (span+strong) + i baglayici */
+/* FlowGraphic: div (span+strong) + i connector */
 .flow-graphic div {
   border: 1px solid var(--px-line);
   background: rgba(255, 255, 255, 0.025);
@@ -5128,7 +5128,7 @@ body {
   background: linear-gradient(90deg, rgba(163, 107, 255, 0.35), rgba(224, 71, 158, 0.7));
 }
 
-/* ProofMatrix: mor noktalar, hot = glow */
+/* ProofMatrix: purple dots, hot = glow */
 .proof-matrix span { background: rgba(163, 107, 255, 0.14); }
 .proof-matrix span.hot { background: var(--accent); box-shadow: 0 0 8px rgba(163, 107, 255, 0.6); }
 
@@ -5156,8 +5156,8 @@ body {
 }
 .setup-banner button:hover { transform: translateY(-2px); box-shadow: 0 18px 34px -12px rgba(224, 71, 158, 0.95); }
 
-/* ============================ INCE DOKUNUSLAR ============================ */
-/* feed girisinde yumusak fade-in (stagger) */
+/* ============================ FINE TOUCHES ============================ */
+/* soft fade-in on feed entry (stagger) */
 @keyframes pxRise {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -5169,17 +5169,17 @@ body {
 .feed-list .post-card:nth-child(n + 5) { animation-delay: 0.16s; }
 .composer-card { animation: pxRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
-/* secim rengi marka tonunda */
+/* selection color in brand tone */
 .app-shell ::selection { background: rgba(163, 107, 255, 0.32); color: #ffffff; }
 
-/* odak halkasi */
+/* focus ring */
 .app-shell :focus-visible {
   outline: 2px solid rgba(163, 107, 255, 0.6);
   outline-offset: 2px;
   border-radius: 8px;
 }
 
-/* ince mor scrollbar */
+/* thin purple scrollbar */
 .feed-main, .right-rail, .sidebar { scrollbar-width: thin; scrollbar-color: rgba(163, 107, 255, 0.4) transparent; }
 .app-shell *::-webkit-scrollbar { width: 9px; height: 9px; }
 .app-shell *::-webkit-scrollbar-thumb {
@@ -5191,7 +5191,7 @@ body {
 .app-shell *::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, rgba(163, 107, 255, 0.7), rgba(224, 71, 158, 0.6)); background-clip: padding-box; }
 .app-shell *::-webkit-scrollbar-track { background: transparent; }
 
-/* ============================ DUYARLI ============================ */
+/* ============================ RESPONSIVE ============================ */
 @media (max-width: 1100px) {
   .feed-layout { grid-template-columns: minmax(0, 1fr); }
   .right-rail { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -5209,7 +5209,7 @@ body {
 }
 
 /* ============================================================
-   KEY LOGIN (ayrac) + SETTINGS LOGIN-KEY YEDEK
+   KEY LOGIN (divider) + SETTINGS LOGIN-KEY BACKUP
    ============================================================ */
 .auth-screen .auth-divider {
   display: flex; align-items: center; gap: 12px; margin: 8px 0 2px;
@@ -5219,7 +5219,7 @@ body {
 .auth-screen .auth-divider::before,
 .auth-screen .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e6e8f0; }
 
-/* settings: login key yedek karti (koyu feed temasi) */
+/* settings: login key backup card (dark feed theme) */
 .key-backup-card { display: grid; gap: 14px; }
 .key-backup-card > div { display: grid; gap: 6px; }
 .key-backup-card h2 { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; color: var(--ink); margin: 0; }
@@ -5249,10 +5249,10 @@ body {
   .feed-list .post-card, .composer-card { animation: none; }
   .post-card, .side-nav button, .publish-button, .auth-submit, .top-actions button, .session-pill { transition: none; }
 }
-/* ====================== END ELNO "PRISM" sentez tema ====================== */
+/* ====================== END ELNO "PRISM" synthesis theme ====================== */
 
 /* ============================================================
-   COMING SOON rozetleri (Messages nav + Settings roadmap)
+   COMING SOON badges (Messages nav + Settings roadmap)
    ============================================================ */
 .soon-badge {
   font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;

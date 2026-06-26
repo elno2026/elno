@@ -40,7 +40,7 @@ async function step(name, ix, signers) {
 const key = (pubkey, isSigner, isWritable) => ({ pubkey, isSigner, isWritable })
 
 async function main() {
-  console.log('=== ELNO instruction testleri (local validator) ===')
+  console.log('=== ELNO instruction tests (local validator) ===')
   const alice = Keypair.generate(), bob = Keypair.generate(), charlie = Keypair.generate()
   await airdrop(authority.publicKey, 5)
   for (const u of [alice, bob, charlie]) await airdrop(u.publicKey, 5)
@@ -62,7 +62,7 @@ async function main() {
   await step('register_profile (alice)', regAlice(alice, 'alice'), [alice, authority])
   await step('register_profile (bob)', regAlice(bob, 'bob'), [bob, authority])
 
-  // ElnoPost ortak accounts (user + own profile)
+  // ElnoPost shared accounts (user + own profile)
   const elnoPostKeys = (u) => [key(u.publicKey, true, true), key(profilePda(u.publicKey), false, true)]
   // 3) elnopost
   await step('elnopost', new TransactionInstruction({ programId: PROGRAM, keys: elnoPostKeys(alice), data: Buffer.concat([disc('elnopost'), str('hello elno, first post')]) }), [alice])
@@ -82,9 +82,9 @@ async function main() {
     programId: PROGRAM, keys: [key(alice.publicKey, true, true), key(followPda(alice.publicKey, bob.publicKey), false, true), key(SYS, false, false)],
     data: Buffer.concat([disc('elnofollow'), bob.publicKey.toBuffer()]),
   }), [alice])
-  // self-follow engeli (basarisiz OLMALI)
-  console.log('  (negatif test: self-follow reddedilmeli)')
-  await step('elnofollow self (RED bekleniyor)', new TransactionInstruction({
+  // self-follow block (MUST fail)
+  console.log('  (negative test: self-follow should be rejected)')
+  await step('elnofollow self (REJECTION expected)', new TransactionInstruction({
     programId: PROGRAM, keys: [key(alice.publicKey, true, true), key(followPda(alice.publicKey, alice.publicKey), false, true), key(SYS, false, false)],
     data: Buffer.concat([disc('elnofollow'), alice.publicKey.toBuffer()]),
   }), [alice])
@@ -99,13 +99,13 @@ async function main() {
     programId: PROGRAM, keys: [key(alice.publicKey, true, false), key(handlePda('alice'), false, true)],
     data: Buffer.concat([disc('transfer_handle'), charlie.publicKey.toBuffer()]),
   }), [alice])
-  // dogrula: handle_claim.owner artik charlie mi
+  // verify: is handle_claim.owner now charlie
   const claim = await conn.getAccountInfo(handlePda('alice'))
   const ownerAfter = new PublicKey(claim.data.subarray(8, 40)).toBase58()
-  console.log('  -> handle "alice" yeni sahip:', ownerAfter, ownerAfter === charlie.publicKey.toBase58() ? '✅ charlie' : '❌ beklenmedik')
+  console.log('  -> handle "alice" new owner:', ownerAfter, ownerAfter === charlie.publicKey.toBase58() ? '✅ charlie' : '❌ unexpected')
 
-  console.log(`\n=== SONUC: ${pass} PASS, ${fail} FAIL ===`)
-  // self-follow negatif testi FAIL sayildi ama o aslinda DOGRU (reddedildi); not dus
+  console.log(`\n=== RESULT: ${pass} PASS, ${fail} FAIL ===`)
+  // the self-follow negative test was counted as FAIL but that is actually CORRECT (it was rejected); take note
   process.exit(0)
 }
 main().catch((e) => { console.error('FATAL', e); process.exit(1) })

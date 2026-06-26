@@ -349,12 +349,12 @@ function formatUsdLabel(value) {
 }
 
 function formatRegistrationFee(lamports) {
-  // Durust etiket: zincirde ucret 0 ise "$1 username" yazma.
+  // Honest label: if the on-chain fee is 0, do not display "$1 username".
   if (lamports === 0n) return 'Username free now'
   return `${REGISTRATION_PRICE_LABEL} (${formatSol(lamports)})`
 }
 
-// Canli SOL/USD (CoinGecko), 60sn cache. Hata olursa son bilinen degeri dondurur.
+// Live SOL/USD (CoinGecko), 60s cache. On error, returns the last known value.
 const SOL_USD_PRICE_URL =
   process.env.OSOCIAL_SOL_PRICE_URL ||
   'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd'
@@ -364,7 +364,7 @@ async function getSolUsd() {
   const now = Date.now()
   if (solUsdCache.value && now - solUsdCache.at < 60_000) return solUsdCache.value
   try {
-    // 2sn timeout: fiyat best-effort, cekirdek imza yolunu asla bloklama
+    // 2s timeout: price is best-effort, never block the core signing path
     const r = await fetch(SOL_USD_PRICE_URL, { signal: AbortSignal.timeout(2000) })
     const j = await r.json()
     const v = Number(j?.solana?.usd)
@@ -373,7 +373,7 @@ async function getSolUsd() {
       return v
     }
   } catch {
-    /* timeout/agda sorun olursa son cache (veya null) */
+    /* on timeout/network problems, use the last cache (or null) */
   }
   return solUsdCache.value
 }
@@ -610,7 +610,7 @@ function parseProfileState(accountData) {
   return { active, postCount: Number(postCount), handle }
 }
 
-// Bir cuzdanin on-chain profilini (handle + durum) dondurur. Key ile girise (loginWithKey) hizmet eder.
+// Returns a wallet's on-chain profile (handle + status). Serves key-based login (loginWithKey).
 async function getProfileMeta(body) {
   const user = new PublicKey(body.userPublicKey)
   const { profile } = registryPdas(user)

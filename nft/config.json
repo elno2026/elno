@@ -1,5 +1,5 @@
 {
-  "_comment": "Sugar / Metaplex Core Candy Machine config TASLAGI — sugar config create ile kesinlestir",
+  "_comment": "Sugar / Metaplex Core Candy Machine config DRAFT — finalize with sugar config create",
   "number": 1000,
   "symbol": "ELNO",
   "sellerFeeBasisPoints": 500,

@@ -2,12 +2,12 @@ import { readFile } from "node:fs/promises";
 import { gzipSync, brotliCompressSync, constants } from "node:zlib";
 
 const SAMPLE_TEXT = `
-Merkezi sosyal medya platformlarının kullanıcı verisi üzerindeki kontrolü,
-insanların dijital kimliklerini kendi cüzdanlarıyla yönetebildiği on-chain
-sosyal ağların neden gerekli olduğunu gösteriyor. Açık bir protokolde postlar,
-profil bilgileri, yanıtlar ve etkileşimler herkes tarafından okunabilir olmalı.
-Bu sayede kapalı ve paralı API'lara bağlı kalmadan farklı arayüzler, indexerlar
-ve topluluk araçları aynı sosyal grafa bağlanabilir.
+The control that centralized social media platforms hold over user data
+demonstrates why on-chain social networks, where people can manage their digital
+identities with their own wallets, are necessary. In an open protocol, posts,
+profile information, replies, and interactions should be readable by everyone.
+This way, different interfaces, indexers, and community tools can connect to the
+same social graph without depending on closed and paid APIs.
 `.trim();
 
 function bytes(input) {

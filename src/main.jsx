@@ -254,18 +254,18 @@ function parseSecretKeyImport(value) {
   const clean = value.trim()
   if (!clean) throw new Error('Paste your private key, or create a new wallet.')
 
-  // base58 (kayitta gosterdigimiz key formati) — once bunu dene
+  // base58 (the key format we show at sign-up) — try this first
   if (!clean.startsWith('[') && !clean.includes(',')) {
     try {
       const decoded = bs58.decode(clean)
       if (decoded.length === 64) return Uint8Array.from(decoded)
     } catch {
-      /* base58 degil, asagida array olarak dene */
+      /* not base58, try as an array below */
     }
     throw new Error('That does not look like a valid private key.')
   }
 
-  // JSON array veya virgullu 64-bayt
+  // JSON array or comma-separated 64-byte
   const values = clean.startsWith('[') ? JSON.parse(clean) : clean.split(',').map((part) => Number(part.trim()))
   if (!Array.isArray(values) || values.length !== 64 || values.some((byte) => !Number.isInteger(byte) || byte < 0 || byte > 255)) {
     throw new Error('Imported key must be a base58 private key or 64-byte array.')
@@ -928,7 +928,7 @@ function Avatar({ author }) {
 }
 
 function AuthIllustration() {
-  // On-chain social temasi: telefon/feed karti + yuzen post baloncuklari + ag dugumleri + cuzdan/jeton, mor-pembe.
+  // On-chain social theme: phone/feed card + floating post bubbles + network nodes + wallet/token, purple-pink.
   return (
     <div className="auth-illustration" aria-hidden="true">
       <svg viewBox="0 0 560 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
@@ -950,12 +950,12 @@ function AuthIllustration() {
           </filter>
         </defs>
 
-        {/* arka blob */}
+        {/* background blob */}
         <circle cx="300" cy="250" r="210" fill="url(#il-grad)" opacity="0.16" />
         <circle cx="430" cy="120" r="70" fill="url(#il-grad)" opacity="0.22" />
         <circle cx="120" cy="380" r="46" fill="url(#il-grad2)" opacity="0.20" />
 
-        {/* ag dugumleri / baglanti cizgileri */}
+        {/* network nodes / connection lines */}
         <g stroke="url(#il-grad)" strokeWidth="2.5" opacity="0.5">
           <line x1="120" y1="150" x2="220" y2="220" />
           <line x1="430" y1="330" x2="350" y2="270" />
@@ -967,24 +967,24 @@ function AuthIllustration() {
           <circle cx="150" cy="360" r="7" />
         </g>
 
-        {/* ana feed karti (telefon) */}
+        {/* main feed card (phone) */}
         <g filter="url(#il-shadow)">
           <rect x="196" y="92" width="200" height="336" rx="30" fill="url(#il-card)" />
           <rect x="196" y="92" width="200" height="76" rx="30" fill="url(#il-grad)" />
           <rect x="196" y="138" width="200" height="30" fill="url(#il-grad)" opacity="0.001" />
-          {/* avatar + isim */}
+          {/* avatar + name */}
           <circle cx="232" cy="130" r="18" fill="#ffffff" />
           <circle cx="232" cy="130" r="14" fill="url(#il-grad2)" />
           <rect x="258" y="120" width="86" height="9" rx="4.5" fill="#ffffff" opacity="0.95" />
           <rect x="258" y="136" width="56" height="8" rx="4" fill="#ffffff" opacity="0.7" />
-          {/* post satirlari */}
+          {/* post lines */}
           <rect x="222" y="196" width="148" height="9" rx="4.5" fill="#d9cffb" />
           <rect x="222" y="216" width="118" height="9" rx="4.5" fill="#e7defb" />
           <rect x="222" y="246" width="148" height="58" rx="14" fill="#f0e9fd" />
           <circle cx="246" cy="275" r="13" fill="url(#il-grad)" opacity="0.85" />
           <rect x="268" y="262" width="86" height="8" rx="4" fill="#cdbdf5" />
           <rect x="268" y="280" width="60" height="8" rx="4" fill="#ddd0f7" />
-          {/* reaksiyon satiri */}
+          {/* reaction row */}
           <g transform="translate(222 326)">
             <path d="M10 3c-2.2-3-7-2-7 2 0 3 4 5.5 7 8 3-2.5 7-5 7-8 0-4-4.8-5-7-2z" fill="#e0479e" />
             <rect x="24" y="3" width="22" height="8" rx="4" fill="#e3d8fa" />
@@ -995,7 +995,7 @@ function AuthIllustration() {
           <rect x="262" y="378" width="68" height="8" rx="4" fill="#ffffff" opacity="0.9" />
         </g>
 
-        {/* yuzen post baloncugu */}
+        {/* floating post bubble */}
         <g filter="url(#il-shadow)">
           <rect x="372" y="190" width="150" height="74" rx="18" fill="#ffffff" />
           <circle cx="398" cy="218" r="14" fill="url(#il-grad)" />
@@ -1004,7 +1004,7 @@ function AuthIllustration() {
           <rect x="398" y="242" width="100" height="8" rx="4" fill="#efe9fb" />
         </g>
 
-        {/* cuzdan / jeton */}
+        {/* wallet / token */}
         <g filter="url(#il-shadow)" transform="translate(78 232)">
           <rect x="0" y="0" width="120" height="84" rx="18" fill="url(#il-grad2)" />
           <rect x="0" y="0" width="120" height="84" rx="18" fill="#ffffff" opacity="0.08" />
@@ -1014,7 +1014,7 @@ function AuthIllustration() {
           <rect x="18" y="40" width="40" height="7" rx="3.5" fill="#ffffff" opacity="0.6" />
         </g>
 
-        {/* parlayan orb (top-right) */}
+        {/* glowing orb (top-right) */}
         <circle cx="448" cy="120" r="26" fill="url(#il-grad)" />
         <circle cx="448" cy="120" r="26" fill="#ffffff" opacity="0.12" />
         <g stroke="#e0479e" strokeWidth="3" strokeLinecap="round" opacity="0.8">
@@ -1028,7 +1028,7 @@ function AuthIllustration() {
 }
 
 function ElnoMark() {
-  // Elno logosu (kullanicinin sectigi "e" monogram app-icon).
+  // Elno logo (the "e" monogram app-icon the user picked).
   return <img className="brand-logo" src="/elno-logo.png" alt="Elno" />
 }
 
@@ -1139,7 +1139,7 @@ function AuthGate({ onEnter }) {
     }
   }
 
-  // Kayitta gosterdigimiz private key ile giris (her cihazdan calisir — key = hesap).
+  // Login with the private key we show at sign-up (works from any device — key = account).
   const loginWithKey = async () => {
     if (!keyLogin.trim() || authBusy || isActivating) return
     setAuthBusy(true)
@@ -1150,15 +1150,15 @@ function AuthGate({ onEnter }) {
       const match = savedAccounts.find((account) => account.wallet === wallet)
       let session
       if (match) {
-        // bu cihazda kayitli: hesap meta'sini al, key'i ac
+        // saved on this device: take the account meta, unlock the key
         session = { ...match, walletSecretKey: Array.from(secret), walletVerified: true }
       } else {
-        // baska cihaz: zincirden profili cek (gercek handle icin), key'den session kur
+        // different device: fetch the profile from chain (for the real handle), build the session from the key
         let onchain = null
         try {
           onchain = await getProfile(wallet)
         } catch {
-          onchain = null // signer ulasilamaz: iyimser devam
+          onchain = null // signer unreachable: continue optimistically
         }
         if (onchain && onchain.exists === false) {
           setStatus('No Elno account is registered for this key. Sign up first, or check the key.')
@@ -1302,7 +1302,7 @@ function AuthGate({ onEnter }) {
       }
       saveAccount(registered)
       markAuthenticated(registered)
-      // Feed'e gecmeden once: kullaniciya giris anahtarini sakla dedirt.
+      // Before moving to the feed: have the user save their login key.
       setKeyRevealed(false)
       setKeySaved(false)
       setBackupSession(registered)
@@ -2024,7 +2024,7 @@ function Composer({ brotli, onPublish, currentUser, setCurrentPacket, onUserUpda
   const [balanceLamports, setBalanceLamports] = useState(null)
   const uploadSeq = useRef(0)
 
-  // Kalan post hakki: cuzdan bakiyesi / post basina taban ucret (5.000 lamport, event-post rent yok).
+  // Remaining post allowance: wallet balance / base fee per post (5,000 lamports, no event-post rent).
   const POST_FEE_LAMPORTS = 5000
   const remainingPosts = balanceLamports != null ? Math.floor(balanceLamports / POST_FEE_LAMPORTS) : null
 
@@ -2559,7 +2559,7 @@ function FeedView({ brotli, posts, setPosts, currentUser, currentPacket, setCurr
 
   const parentRef = (post) => post?.proofTx || post?.programProof?.signature || ''
 
-  // Alinti: gercekten zincire elnoquote olarak yazar, sonra feed'e ekler.
+  // Quote: actually writes to chain as elnoquote, then adds it to the feed.
   const quote = async (sourcePost, text) => {
     const quoteOf = parentRef(sourcePost)
     if (!quoteOf) throw new Error('You can only quote on-chain posts (this one has no transaction yet).')
@@ -2586,7 +2586,7 @@ function FeedView({ brotli, posts, setPosts, currentUser, currentPacket, setCurr
     setPosts((current) => [quotePost, ...current])
   }
 
-  // Yanit: gercekten zincire elnoreply olarak yazar (reply_to = parent tx), sonra parent altina ekler.
+  // Reply: actually writes to chain as elnoreply (reply_to = parent tx), then adds it under the parent.
   const reply = async (id, text) => {
     const parent = posts.find((post) => post.id === id)
     const replyTo = parentRef(parent)
@@ -3170,7 +3170,7 @@ function App() {
   }
 
   const logout = () => {
-    // Tam cikis: her seyi unut. Anahtar = hesap; tekrar girmek icin private key yapistirilir.
+    // Full logout: forget everything. Key = account; to log back in, paste the private key.
     for (const k of [
       ACCOUNTS_STORAGE_KEY,
       ACTIVE_ACCOUNT_STORAGE_KEY,

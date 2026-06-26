@@ -13,9 +13,9 @@ pub const MAX_DISPLAY_NAME_BYTES: usize = 64;
 pub const MAX_STORED_POST_PACKET_BYTES: usize = 512;
 pub const MAX_EVENT_POST_PACKET_BYTES: usize = 1024;
 pub const MAX_REGISTRATION_FEE_LAMPORTS: u64 = 1_000_000_000;
-// Parent referansi: alintilanan/yanitlanan postun tx imzasi (base58 ~88 byte) icin tampon.
+// Parent reference: buffer for the tx signature (base58 ~88 bytes) of the quoted/replied post.
 pub const MAX_POST_REF_BYTES: usize = 96;
-// Profil meta (event-based, hesaba dokunmaz): bio + avatar ust sinirlari.
+// Profile meta (event-based, does not touch the account): upper limits for bio + avatar.
 pub const MAX_BIO_BYTES: usize = 280;
 pub const MAX_AVATAR_BYTES: usize = 200;
 
@@ -202,7 +202,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Duz post (eski osocial_post). Cheap event-post yolu.
+    // Plain post (formerly osocial_post). Cheap event-post path.
     pub fn elnopost(ctx: Context<ElnoPost>, packet: String) -> Result<()> {
         let owner = ctx.accounts.user.key();
         let profile = &mut ctx.accounts.profile;
@@ -211,7 +211,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Yanit: bir posta cevap. reply_to = yanitlanan postun referansi (tx imzasi).
+    // Reply: a response to a post. reply_to = reference of the replied post (tx signature).
     pub fn elnoreply(ctx: Context<ElnoPost>, packet: String, reply_to: String) -> Result<()> {
         validate_ref(&reply_to)?;
         let owner = ctx.accounts.user.key();
@@ -221,7 +221,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Alinti: bir postu kendi yorumunla paylas. quote_of = alintilanan postun referansi.
+    // Quote: share a post with your own comment. quote_of = reference of the quoted post.
     pub fn elnoquote(ctx: Context<ElnoPost>, packet: String, quote_of: String) -> Result<()> {
         validate_ref(&quote_of)?;
         let owner = ctx.accounts.user.key();
@@ -231,8 +231,8 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Duzenle: orijinali edit_of ile isaret eden yeni event. post_count ARTMAZ (yeni post degil).
-    // Yetki indexer'da: yalniz duzenleyen == orijinal yazar olan editler kabul edilir.
+    // Edit: a new event pointing at the original via edit_of. post_count DOES NOT increase (not a new post).
+    // Authorization is in the indexer: only edits where editor == original author are accepted.
     pub fn elnoedit(ctx: Context<ElnoPost>, packet: String, edit_of: String) -> Result<()> {
         require!(!packet.trim().is_empty(), RegistryError::EmptyPost);
         require!(
@@ -252,7 +252,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Sil: tombstone event. Zincirden silmez; indexer hedef postu gizler. post_count ARTMAZ.
+    // Delete: tombstone event. Does not remove from the chain; the indexer hides the target post. post_count DOES NOT increase.
     pub fn elnodelete(ctx: Context<ElnoPost>, target: String) -> Result<()> {
         require!(ctx.accounts.profile.active, RegistryError::ProfileDisabled);
         validate_ref(&target)?;
@@ -266,7 +266,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Takip et: Follow PDA olusturur (cift-takip init ile engellenir).
+    // Follow: creates a Follow PDA (double-following is prevented by init).
     pub fn elnofollow(ctx: Context<ElnoFollow>, following: Pubkey) -> Result<()> {
         require_keys_neq!(ctx.accounts.user.key(), following, RegistryError::CannotFollowSelf);
 
@@ -285,7 +285,7 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Takibi birak: Follow PDA'sini kapatir, rent kullaniciya iade edilir.
+    // Unfollow: closes the Follow PDA, rent is refunded to the user.
     pub fn elnounfollow(ctx: Context<ElnoUnfollow>, following: Pubkey) -> Result<()> {
         emit!(FollowRemoved {
             follower: ctx.accounts.user.key(),
@@ -295,9 +295,9 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Profil duzenle: display name + bio + avatar. Event-based — Profile hesabini DEGISTIRMEZ,
-    // boylece mevcut on-chain profiller bozulmaz. Indexer en son meta event'ini gosterir.
-    // avatar: normal resim URL'i veya "nft:<mint>" referansi olabilir (NFT icin elnopfp'e bak).
+    // Edit profile: display name + bio + avatar. Event-based — it DOES NOT MODIFY the Profile account,
+    // so existing on-chain profiles are not broken. The indexer shows the latest meta event.
+    // avatar: can be a normal image URL or an "nft:<mint>" reference (see elnopfp for NFTs).
     pub fn elnoprofile(
         ctx: Context<ElnoPost>,
         display_name: String,
@@ -323,10 +323,10 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // NFT profil fotosu (PFP). nft_mint = avatar yapilacak NFT'nin mint adresi.
-    // owner_wallet = NFT'yi tutan ana cuzdan (NFT'ler app device wallet'inde degil, kullanicinin
-    // gercek/recovery cuzdaninda durur). Indexer DOGRULAR: owner_wallet bu hesaba bagli mi +
-    // o NFT'ye gercekten sahip mi (RPC). Sahiplik degisirse (NFT transfer) indexer altigeni kaldirir.
+    // NFT profile picture (PFP). nft_mint = the mint address of the NFT to be used as the avatar.
+    // owner_wallet = the main wallet holding the NFT (NFTs are not in the app device wallet, they live
+    // in the user's real/recovery wallet). The indexer VERIFIES: is owner_wallet linked to this account +
+    // does it actually own that NFT (RPC). If ownership changes (NFT transfer), the indexer removes the hexagon.
     pub fn elnopfp(ctx: Context<ElnoPost>, nft_mint: Pubkey, owner_wallet: Pubkey) -> Result<()> {
         require!(ctx.accounts.profile.active, RegistryError::ProfileDisabled);
 
@@ -376,8 +376,8 @@ pub mod osocial_registry {
         Ok(())
     }
 
-    // Kullanici adi DEVRI: handle'in sahibi onu baska bir cuzdana gecirir (satis/devir/pazar).
-    // HandleClaim = sahiplik kaydi; sadece mevcut sahip imzalayabilir. Profil display'i indexer cozer.
+    // Username TRANSFER: the handle owner moves it to another wallet (sale/transfer/marketplace).
+    // HandleClaim = ownership record; only the current owner can sign. The indexer resolves the profile display.
     pub fn transfer_handle(ctx: Context<TransferHandle>, new_owner: Pubkey) -> Result<()> {
         require_keys_neq!(new_owner, Pubkey::default(), RegistryError::InvalidNewOwner);
         let claim = &mut ctx.accounts.handle_claim;
@@ -396,7 +396,7 @@ pub mod osocial_registry {
     }
 }
 
-// Post/reply/quote ortak: paketi dogrula, sayaci artir, (sequence, created_at) dondur.
+// Shared by post/reply/quote: validate the packet, increment the counter, return (sequence, created_at).
 fn bump_post_counter(profile: &mut Account<Profile>, packet: &str) -> Result<(u64, i64)> {
     require!(!packet.trim().is_empty(), RegistryError::EmptyPost);
     require!(
@@ -415,7 +415,7 @@ fn bump_post_counter(profile: &mut Account<Profile>, packet: &str) -> Result<(u6
     Ok((sequence, created_at))
 }
 
-// Yanit/alinti parent referansini dogrula (bos olamaz, ust sinir).
+// Validate the reply/quote parent reference (cannot be empty, upper limit).
 fn validate_ref(reference: &str) -> Result<()> {
     let bytes = reference.as_bytes();
     require!(!bytes.is_empty(), RegistryError::EmptyRef);
@@ -581,7 +581,7 @@ pub struct CreatePostPacket<'info> {
     pub profile: Account<'info, Profile>,
 }
 
-// elnopost / elnoreply / elnoquote / elnoedit / elnodelete ayni hesaplari kullanir: user (signer) + kendi profili.
+// elnopost / elnoreply / elnoquote / elnoedit / elnodelete use the same accounts: user (signer) + their own profile.
 #[derive(Accounts)]
 pub struct ElnoPost<'info> {
     #[account(mut)]
